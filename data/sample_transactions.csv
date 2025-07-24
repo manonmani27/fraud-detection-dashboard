@@ -1,0 +1,6 @@
+amount,location,device,time,is_fraud
+1200,Mumbai,Mobile,10:30,0
+3000,Delhi,Web,11:00,1
+450,Bangalore,Web,12:15,0
+2300,Chennai,Mobile,13:00,1
+150,Hyderabad,Mobile,14:45,0
