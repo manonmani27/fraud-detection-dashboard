@@ -1,0 +1,6 @@
+transaction_id,amount,location,device,time,is_fraud
+TXN001,120.50,New York,Mobile,10:30,0
+TXN002,3100.00,Delhi,Web,11:10,1
+TXN003,450.25,Bangalore,Web,12:00,0
+TXN004,2000.00,Chennai,Mobile,13:30,1
+TXN005,90.00,Hyderabad,Mobile,14:15,0
