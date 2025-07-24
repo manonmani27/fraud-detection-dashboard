@@ -29,7 +29,7 @@ An interactive web app built with Streamlit that detects potential financial fra
 
 ## 📂 Sample Input Format
 
-A sample input file is available at: `data/sample_transactions.csv`
+A sample input file is available at: sample_transactions.csv
 
 | transaction_id | amount | location | device | ... |
 |----------------|--------|----------|--------|-----|
