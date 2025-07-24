@@ -14,10 +14,10 @@ An interactive web app built with Streamlit that detects potential financial fra
 ## 🖼️ Demo Screenshots
 
 ### 🔍 Dashboard View – Page 1
-![Page 1](assets/fraud_dashboard_1.jpg)
+![Page 1](fraud_dashboard_1.jpg)
 
 ### 📊 Dashboard View – Page 2
-![Page 2](assets/fraud_dashboard_2.jpg)
+![Page 2](fraud_dashboard_2.jpg)
 
 ## 📦 How to Use
 
