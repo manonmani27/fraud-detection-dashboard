@@ -78,6 +78,51 @@ if selected_device != "All":
     filtered_plot_df = filtered_plot_df[filtered_plot_df["device"] == selected_device]
 
 # ----------------------------
+# Predicted Risk (sorted) Table
+# ----------------------------
+st.subheader("🔎 Predicted Risk (sorted)")
+sorted_df = df.sort_values(by="Fraud Risk", ascending=False)
+st.dataframe(sorted_df[["amount", "location", "device", "time", "Fraud Risk"]])
+
+# ----------------------------
+# Fraud Risk Distribution Histogram
+# ----------------------------
+st.subheader("📊 Fraud Risk Distribution")
+fig_hist, ax_hist = plt.subplots()
+ax_hist.hist(df["Fraud Risk"], bins=10, color="orange", edgecolor="black")
+ax_hist.set_title("Distribution of Fraud Risk Scores")
+ax_hist.set_xlabel("Fraud Risk Score")
+ax_hist.set_ylabel("Number of Transactions")
+ax_hist.grid(True)
+st.pyplot(fig_hist)
+
+# ----------------------------
+# Avg Fraud Risk by Location Bar Chart
+# ----------------------------
+if "location" in df.columns:
+    st.subheader("📍 Avg. Fraud Risk by Location")
+    avg_location = df.groupby("location")["Fraud Risk"].mean().sort_values()
+    fig_loc, ax_loc = plt.subplots()
+    avg_location.plot(kind="bar", color="blue", ax=ax_loc)
+    ax_loc.set_ylabel("Avg Fraud Risk")
+    ax_loc.set_xlabel("Location")
+    ax_loc.grid(axis="y")
+    st.pyplot(fig_loc)
+
+# ----------------------------
+# Avg Fraud Risk by Device Bar Chart
+# ----------------------------
+if "device" in df.columns:
+    st.subheader("💻 Avg. Fraud Risk by Device")
+    avg_device = df.groupby("device")["Fraud Risk"].mean().sort_values()
+    fig_dev, ax_dev = plt.subplots()
+    avg_device.plot(kind="bar", color="blue", ax=ax_dev)
+    ax_dev.set_ylabel("Avg Fraud Risk")
+    ax_dev.set_xlabel("Device")
+    ax_dev.grid(axis="y")
+    st.pyplot(fig_dev)
+
+# ----------------------------
 # 📊 Grouped Bar Chart (Web vs Mobile)
 # ----------------------------
 if "device" in df.columns and "location" in df.columns:
@@ -102,16 +147,13 @@ st.subheader("📋 Full Table with Risk Scores")
 st.dataframe(df.style.apply(highlight_risk, axis=1))
 
 # ----------------------------
-# Excel Download
+# CSV Download Button
 # ----------------------------
-def download_link(df):
-    output = io.BytesIO()
-    with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
-        df.to_excel(writer, index=False, sheet_name="Fraud Predictions")
-    processed_data = output.getvalue()
-    b64 = base64.b64encode(processed_data).decode()
-    href = f'<a href="data:application/octet-stream;base64,{b64}" download="fraud_predictions.xlsx">📥 Download as Excel</a>'
-    return href
-
-st.markdown("### ⬇️ Download Results")
-st.markdown(download_link(df), unsafe_allow_html=True)
+csv = df.to_csv(index=False).encode('utf-8')
+st.markdown("### 📥 Download Predictions")
+st.download_button(
+    label="Download as CSV",
+    data=csv,
+    file_name='fraud_predictions.csv',
+    mime='text/csv',
+)
